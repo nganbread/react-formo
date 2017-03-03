@@ -11,9 +11,9 @@ class ValidationMessago extends Component {
     }
 
     render() {
-        return !this.state || this.state.valid
-            ? null
-            : <div>{this.props.children}</div>;
+        return this.state && this.state.invalid
+            ? <div>{this.props.children}</div>
+            : null;
     }
 }
 

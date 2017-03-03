@@ -1,4 +1,4 @@
-import { pathProperty } from './../../utils/utils';
+import every from 'lodash/every';
 
 export default class {
     traverse(context, validationState){
@@ -13,9 +13,9 @@ export default class {
     }
 
     visit(context, validationState){
-        context.getLeaves('VALIDATION_MESSAGE').forEach(validationMessage =>{
-            validationMessage.setState({
-                invalid: !pathProperty(validationState, validationMessage.props.for)['_validations'][validationMessage.props.rule]
+        context.getLeaves('VALIDATABLE').forEach(validatable =>{
+            validatable.setState({
+                invalid: !every(validationState[validatable.props.name]['_validations'])
             });
         });
 

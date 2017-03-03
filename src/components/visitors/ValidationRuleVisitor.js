@@ -1,15 +1,30 @@
-import AncestorVisitor from './AncestorVisitor';
+import { mapToObject } from './../../utils/utils';
 
-export default class extends AncestorVisitor{
-    constructor(){
-        super();
+export default class {
+    traverse(context) {
+        //go to the root
+        let root = context;
+        while(root.parent){
+            root = root.parent;
+        }
 
-        this.rules = {};
+        //breadth first
+        this.validationRules = this.visit(root, {});
     }
 
-    visit(context){
-        context.getLeaves('VALIDATION_RULE').forEach(leaf =>{
-            this.rules[leaf.props.rule] = this.rules[leaf.props.rule] || leaf.props.validate;
-        });
+    visit(context, previousLeafState) {
+        const leaves = context.getLeaves('VALIDATION_RULE');
+        
+        //Override the previous leaf state
+        const leafState = {
+            ...previousLeafState,
+            ...mapToObject(leaves, x => [x.props.rule, x.props.validate])   
+        };
+        const branchState = mapToObject(context.branches, x => [x.name(), this.visit(x, leafState)]);
+
+        return{
+            ...branchState,
+            _validations: leafState,
+        }
     }
 }

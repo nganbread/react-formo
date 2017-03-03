@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
+import ValidationRuleVisitor from './visitors/ValidationRuleVisitor';
+import ValidationInputVisitor from './visitors/ValidationInputVisitor';
 import ValidationStateVisitor from './visitors/ValidationStateVisitor';
 import ValidationMessageVisitor from './visitors/ValidationMessageVisitor';
 
@@ -18,12 +20,17 @@ class Inputo extends Component {
         this.setState({
             value: event.target.value
         }, () => {
+            const ruleVisitor = new ValidationRuleVisitor();
             const stateVisitor = new ValidationStateVisitor();
+            const inputVisitor = new ValidationInputVisitor();
             const messageVisitor = new ValidationMessageVisitor();
 
-            stateVisitor.traverse(inputo.context.formo);
+            ruleVisitor.traverse(inputo.context.formo);
+            stateVisitor.traverse(inputo.context.formo, ruleVisitor.validationRules);
+            inputVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
             messageVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
 
+            console.log(ruleVisitor.validationRules)
             console.log(stateVisitor.validationState);
         });
     }
@@ -40,12 +47,8 @@ class Inputo extends Component {
         return this.state.value;
     }
 
-    // componentDidUpdate() {
-    //     this.context.formo.changed();
-    // }
-
     render() {
-        return <input placeholder={this.props.name} value={this.state.value} type="text" onChange={e => this.onChange(e)} />
+        return <input style={{border: this.state.invalid ? '1px solid red' : '', margin: 2}} placeholder={this.props.name} value={this.state.value} type="text" onChange={e => this.onChange(e)} />
     }
 }
 

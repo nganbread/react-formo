@@ -12,11 +12,12 @@ export default class extends Component {
                 form1.form2.input2 is required
             </ValidationMessago>
 
-            <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
+            <ValidationRulo rule="required" validate={value => !value}></ValidationRulo>
             
             <Inputo name="input1" validations={{ required: true }} />
 
             <Formo name="form2">
+                <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
                 <Inputo name="input2" validations={['required']} />
                 <Inputo name="input3" validations={'required'} />
                 <Inputo name="input4" validations="required" />
