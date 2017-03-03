@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import BranchContext from './contexts/BranchContext';
+import { rootContext } from './contexts/RootContext';
 
 class Formo extends Component {
 
     getChildContext() {
         return {
-            formo: this.context.formo
-                ? this.context.formo.branch(this)
-                : new BranchContext(this)
+            formo: (this.context.formo || rootContext).branch(this)
         };
     }
 
     render() {
-        return <div style={{border: '1px solid red', padding: 5, margin: 5}}>
+        return <div style={{ border: this.state && this.state.invalid ? '1px solid red' : '', padding: 5, margin: 5 }}>
             {this.props.name}
             {this.props.children}
         </div>

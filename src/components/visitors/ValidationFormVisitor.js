@@ -1,24 +1,23 @@
 import { rootContext } from './../contexts/RootContext';
+import every from 'lodash/every';
+
 export default class {
-    traverse(context, validationState){
+    traverse(context, validationState) {
         //go to the root
         let root = context;
         while (root.parent !== rootContext) {
             root = root.parent;
         }
 
-        //breadth first
         this.visit(root, validationState);
     }
 
-    visit(context, validationState){
-        context.getLeaves('VALIDATABLE').forEach(validatable =>{
-            validatable.setState({
-                invalid: !validationState[validatable.props.name]['_valid']
-            });
+    visit(context, validationState) {
+        context.component.setState({
+            invalid: !validationState['_valid']
         });
 
-        context.branches.forEach(branch =>{
+        context.branches.forEach(branch => {
             this.visit(branch, validationState[branch.name()])
         });
     }

@@ -9,9 +9,9 @@ class ValidationRulo extends Component {
         this.context.formo.deleaf('VALIDATION_RULE', this);
     }
 
-    componentDidUpdate() {
-        this.context.formo.changed();
-    }
+    // componentDidUpdate() {
+    //     this.context.formo.changed();
+    // }
 
     render(){
         return null;

@@ -5,6 +5,7 @@ import ValidationRuleVisitor from './visitors/ValidationRuleVisitor';
 import ValidationInputVisitor from './visitors/ValidationInputVisitor';
 import ValidationStateVisitor from './visitors/ValidationStateVisitor';
 import ValidationMessageVisitor from './visitors/ValidationMessageVisitor';
+import ValidationFormVisitor from './visitors/ValidationFormVisitor';
 
 class Inputo extends Component {
     constructor() {
@@ -23,11 +24,13 @@ class Inputo extends Component {
             const ruleVisitor = new ValidationRuleVisitor();
             const stateVisitor = new ValidationStateVisitor();
             const inputVisitor = new ValidationInputVisitor();
+            const formVisitor = new ValidationFormVisitor();
             const messageVisitor = new ValidationMessageVisitor();
 
             ruleVisitor.traverse(inputo.context.formo);
             stateVisitor.traverse(inputo.context.formo, ruleVisitor.validationRules);
             inputVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
+            formVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
             messageVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
 
             console.log(ruleVisitor.validationRules)

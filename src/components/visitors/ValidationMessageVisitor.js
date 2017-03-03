@@ -1,10 +1,11 @@
 import { pathProperty } from './../../utils/utils';
+import { rootContext } from './../contexts/RootContext';
 
 export default class {
     traverse(context, validationState){
         //go to the root
         let root = context;
-        while(root.parent){
+        while (root.parent !== rootContext) {
             root = root.parent;
         }
 

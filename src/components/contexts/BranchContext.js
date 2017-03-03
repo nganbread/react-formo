@@ -4,7 +4,7 @@ import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import find from 'lodash/find';
 
-export default class BranchContext {
+export default class BranchContext{
     constructor(component, parent) {
 
         this.component = component;
