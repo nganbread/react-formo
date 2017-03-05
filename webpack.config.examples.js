@@ -40,7 +40,7 @@ module.exports = {
     hot: true,
     // enable HMR on the server
 
-    contentBase: resolve(__dirname, 'examples'),
+    contentBase: resolve(__dirname, '/'),
     // match the output path
 
     publicPath: '/'

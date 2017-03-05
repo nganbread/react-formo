@@ -9,10 +9,10 @@ export default class extends Component {
             </ValidationMessago>
 
             <ValidationMessago for="form2.input2" rule="required">
-                form1.form2.input2 is required
+                form1.form2.input2 is required!
             </ValidationMessago>
 
-            <ValidationRulo rule="required" validate={value => !value}></ValidationRulo>
+            <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
             
             <Inputo name="input1" validations={{ required: true }} />
 

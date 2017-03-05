@@ -43,7 +43,7 @@ export default class BranchContext{
         }
     }
 
-    deleaf(component) {
+    deleaf(type, component) {
 
         remove(this.leaves[type] || [], component);
     }
