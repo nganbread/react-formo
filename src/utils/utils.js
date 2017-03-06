@@ -9,6 +9,7 @@ import reduce from 'lodash/reduce';
 import toPath from 'lodash/toPath';
 
 export function keys(o) {
+    if(!o) return [];
     if (!isArray(o)) {
         if (isObject(o)) {
             o = map(o, (value, key) => value ? key : null);

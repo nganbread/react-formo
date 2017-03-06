@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import BranchContext from './contexts/BranchContext';
-import { rootContext } from './contexts/RootContext';
+import BranchContext from 'contexts/BranchContext';
+import { rootContext } from 'contexts/RootContext';
 
 class Formo extends Component {
 

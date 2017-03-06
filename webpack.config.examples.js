@@ -11,8 +11,12 @@ module.exports = {
     index: [...entry, '../examples/index.js']
   },
   resolve: {
+    modules:[
+      'node_modules',
+      resolve(__dirname, 'src'),
+    ],
     alias: {
-      'react-formo': '../src/index.js'
+      'react-formo': '../src/react-formo.js'
     }
   },
   output: {

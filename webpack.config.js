@@ -14,6 +14,13 @@ module.exports = {
     publicPath: '/'
   },
 
+  resolve:{
+    modules:[
+      'node_modules',
+      resolve(__dirname, 'src'),
+    ]
+  },
+
   context: resolve(__dirname, 'src'),
 
   devtool: 'inline-source-map',

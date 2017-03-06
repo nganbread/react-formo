@@ -1,5 +1,6 @@
-import { rootContext } from './../contexts/RootContext';
+import { rootContext } from 'contexts/RootContext';
 import every from 'lodash/every';
+import CONSTANTS from 'configuration/constants';
 
 export default class {
     traverse(context, validationState) {
@@ -14,11 +15,11 @@ export default class {
 
     visit(context, validationState) {
         context.setState({
-            invalid: !validationState['_valid']
+            invalid: !validationState[CONSTANTS.STATE.VALID]
         });
 
         context.branches.forEach(branch => {
-            this.visit(branch, validationState[branch.prop('name')])
+            this.visit(branch, validationState[branch.prop(CONSTANTS.PROP.NAME)])
         });
     }
 }

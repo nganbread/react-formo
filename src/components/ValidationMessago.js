@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import CONSTANTS from 'configuration/constants';
 
 class ValidationMessago extends Component {
 
     componentWillMount() {
-        this.context.formo.leaf('VALIDATION_MESSAGE', this);
+        this.context.formo.leaf(CONSTANTS.LEAF.VALIDATION_MESSAGO, this);
     }
 
     componentWillUnmount() {
-        this.context.formo.deleaf('VALIDATION_MESSAGE', this);
+        this.context.formo.deleaf(CONSTANTS.LEAF.VALIDATION_MESSAGO, this);
     }
 
     render() {

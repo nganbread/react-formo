@@ -1,4 +1,6 @@
-import { rootContext } from './../contexts/RootContext';
+import { rootContext } from 'contexts/RootContext';
+import CONSTANTS from 'configuration/constants';
+
 export default class {
     traverse(context, validationState){
         //go to the root
@@ -12,14 +14,14 @@ export default class {
     }
 
     visit(context, validationState){
-        context.getLeaves('VALIDATABLE').forEach(validatable =>{
+        context.getLeaves(CONSTANTS.LEAF.INPUTO).forEach(validatable =>{
             validatable.setState({
-                invalid: !validationState[validatable.prop('name')]['_valid']
+                invalid: !validationState[validatable.prop(CONSTANTS.PROP.NAME)][CONSTANTS.STATE.VALID]
             });
         });
 
         context.branches.forEach(branch =>{
-            this.visit(branch, validationState[branch.prop('name')])
+            this.visit(branch, validationState[branch.prop(CONSTANTS.PROP.NAME)])
         });
     }
 }

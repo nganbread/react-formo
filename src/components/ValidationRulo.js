@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import CONSTANTS from 'configuration/constants'
 
 class ValidationRulo extends Component {
     componentWillMount(){
-        this.context.formo.leaf('VALIDATION_RULE', this);
+        this.context.formo.leaf(CONSTANTS.LEAF.VALIDATION_RULO, this);
     }
 
     componentWillUnmount(){
-        this.context.formo.deleaf('VALIDATION_RULE', this);
+        this.context.formo.deleaf(CONSTANTS.LEAF.VALIDATION_RULO, this);
     }
 
     // componentDidUpdate() {

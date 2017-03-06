@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
-import ValidationRuleVisitor from './visitors/ValidationRuleVisitor';
-import ValidationInputVisitor from './visitors/ValidationInputVisitor';
-import ValidationStateVisitor from './visitors/ValidationStateVisitor';
-import ValidationMessageVisitor from './visitors/ValidationMessageVisitor';
-import ValidationFormVisitor from './visitors/ValidationFormVisitor';
+import ValidationRuleVisitor from 'visitors/ValidationRuleVisitor';
+import ValidationInputVisitor from 'visitors/ValidationInputVisitor';
+import ValidationStateVisitor from 'visitors/ValidationStateVisitor';
+import ValidationMessageVisitor from 'visitors/ValidationMessageVisitor';
+import ValidationFormVisitor from 'visitors/ValidationFormVisitor';
+import CONSTANTS from 'configuration/constants';
 
 class Inputo extends Component {
     constructor() {
@@ -39,11 +40,11 @@ class Inputo extends Component {
     }
 
     componentWillMount() {
-        this.context.formo.leaf('VALIDATABLE', this);
+        this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this);
     }
 
     componentWillUnmount() {
-        this.context.formo.deleaf('VALIDATABLE', this);
+        this.context.formo.deleaf(CONSTANTS.LEAF.INPUTO, this);
     }
     
     getValue(){
