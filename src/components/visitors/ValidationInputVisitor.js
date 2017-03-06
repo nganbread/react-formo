@@ -14,12 +14,12 @@ export default class {
     visit(context, validationState){
         context.getLeaves('VALIDATABLE').forEach(validatable =>{
             validatable.setState({
-                invalid: !validationState[validatable.props.name]['_valid']
+                invalid: !validationState[validatable.prop('name')]['_valid']
             });
         });
 
         context.branches.forEach(branch =>{
-            this.visit(branch, validationState[branch.name()])
+            this.visit(branch, validationState[branch.prop('name')])
         });
     }
 }

@@ -1,23 +1,18 @@
+import LeafContext from './LeafContext';
 import some from 'lodash/some';
 import remove from 'lodash/remove';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
 import find from 'lodash/find';
 
-export default class BranchContext{
-    constructor(component, parent) {
-
-        this.component = component;
-        this.parent = parent;
-
-        if (!isString(component.props.name) && !isNumber(component.props.name)) throw 'Component must have an indexable name'
+export default class BranchContext extends LeafContext{
+    constructor(...args) {
+        super(...args)
 
         this.branches = [];
         this.leaves = {};
     }
 
     branch(component) {
-        let existing = find(this.branches, branch => branch.component === component);
+        let existing = find(this.branches, branch => branch._component === component);
         if (!existing) {
             //keep branches unique
             existing = new BranchContext(component, this);
@@ -32,20 +27,19 @@ export default class BranchContext{
     }
 
     prune(component) {
-        remove(this.branches, branch => branch.component === component);
+        remove(this.branches, branch => branch._component === component);
     }
 
     leaf(type, component) {
         this.leaves[type] = this.leaves[type] || [];
-        if (!some(this.leaves, leaf => leaf.component === component)) {
+        if (!some(this.leaves[type], leaf => leaf._component === component)) {
             //keep leaves unique
-            this.leaves[type].push(component);
+            this.leaves[type].push(new LeafContext(component, this));
         }
     }
 
     deleaf(type, component) {
-
-        remove(this.leaves[type] || [], component);
+        remove(this.leaves[type] || [], leaf => leaf._component === component);
     }
 
     getLeaves(type) {

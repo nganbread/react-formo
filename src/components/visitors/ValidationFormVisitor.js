@@ -13,12 +13,12 @@ export default class {
     }
 
     visit(context, validationState) {
-        context.component.setState({
+        context.setState({
             invalid: !validationState['_valid']
         });
 
         context.branches.forEach(branch => {
-            this.visit(branch, validationState[branch.name()])
+            this.visit(branch, validationState[branch.prop('name')])
         });
     }
 }

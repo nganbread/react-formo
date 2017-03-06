@@ -16,12 +16,12 @@ export default class {
     visit(context, validationState){
         context.getLeaves('VALIDATION_MESSAGE').forEach(validationMessage =>{
             validationMessage.setState({
-                invalid: !pathProperty(validationState, validationMessage.props.for)['_validations'][validationMessage.props.rule]
+                invalid: !pathProperty(validationState, validationMessage.prop('for'))['_validations'][validationMessage.prop('rule')]
             });
         });
 
         context.branches.forEach(branch =>{
-            this.visit(branch, validationState[branch.name()])
+            this.visit(branch, validationState[branch.prop('name')])
         });
     }
 }

@@ -19,9 +19,9 @@ export default class {
         //Override the previous leaf state
         const leafState = {
             ...previousLeafState,
-            ...mapToObject(leaves, x => [x.props.rule, x.props.validate])
+            ...mapToObject(leaves, x => [x.prop('rule'), x.prop('validate')])
         };
-        const branchState = mapToObject(context.branches, x => [x.name(), this.visit(x, leafState)]);
+        const branchState = mapToObject(context.branches, x => [x.prop('name'), this.visit(x, leafState)]);
 
         return {
             ...branchState,

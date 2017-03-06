@@ -1,13 +1,16 @@
 import BranchContext from './BranchContext';
 
 const fakeComponent = {
-    props: { name: '_root' },
-    setState: () => { }
+    props: { name: '_root' }
 };
 
 class RootContext extends BranchContext {
     constructor() {
-        super(fakeComponent, null)
+        super(null, null)
+    }
+
+    setState(){
+
     }
 }
 

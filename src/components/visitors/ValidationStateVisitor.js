@@ -18,8 +18,8 @@ export default class {
     visit(context, validationRules) {
         const leaves = context.getLeaves('VALIDATABLE');
 
-        const leafState = mapToObject(leaves, x => [x.props.name, this.validate(x, validationRules)])
-        const branchState = mapToObject(context.branches, x => [x.name(), this.visit(x, validationRules[x.name()])]);
+        const leafState = mapToObject(leaves, x => [x.prop('name'), this.validate(x, validationRules)])
+        const branchState = mapToObject(context.branches, x => [x.prop('name'), this.visit(x, validationRules[x.prop('name')])]);
 
         const validationState = {
             ...leafState,
@@ -31,7 +31,7 @@ export default class {
 
     validate(component, validationRules) {
         const value = component.getValue();
-        const ruleKeys = keys(component.props.validations);
+        const ruleKeys = keys(component.prop('validations'));
         const validations = mapToObject(ruleKeys, x => {
             const rule = validationRules['_validations'][ruleKeys];
             const valid = !rule || rule(value);
