@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CONSTANTS from 'configuration/constants'
 
-class ValidationRulo extends Component {
+class ValidationRulo extends PureComponent {
     componentWillMount(){
         this.context.formo.leaf(CONSTANTS.LEAF.VALIDATION_RULO, this);
     }
@@ -16,6 +16,11 @@ class ValidationRulo extends Component {
 
     render(){
         return null;
+    }
+
+    shouldComponentUpdate(){
+        //We never render any children, so we dont ever have to update
+        return false;
     }
 }
 
