@@ -6,8 +6,6 @@ export default class LeafContext{
 
         this._component = component;
         this.parent = parent;
-
-        if (!isString(component.props.name) && !isNumber(component.props.name)) throw 'Component must have an indexable name'
     }
 
     prop(name){

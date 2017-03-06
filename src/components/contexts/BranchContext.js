@@ -22,18 +22,14 @@ export default class BranchContext extends LeafContext{
         return existing;
     }
 
-    name(){
-        return this.component.props.name
-    }
-
     prune(component) {
         remove(this.branches, branch => branch._component === component);
     }
 
     leaf(type, component) {
         this.leaves[type] = this.leaves[type] || [];
+        //keep leaves unique
         if (!some(this.leaves[type], leaf => leaf._component === component)) {
-            //keep leaves unique
             this.leaves[type].push(new LeafContext(component, this));
         }
     }

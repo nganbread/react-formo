@@ -30,7 +30,7 @@ export default class {
     }
 
     validate(component, validationRules) {
-        const value = component.getValue();
+        const value = component._component.getValue();
         const ruleKeys = keys(component.prop('validations'));
         const validations = mapToObject(ruleKeys, x => {
             const rule = validationRules['_validations'][ruleKeys];
