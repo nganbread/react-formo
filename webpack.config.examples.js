@@ -16,7 +16,7 @@ module.exports = {
       resolve(__dirname, 'src'),
     ],
     alias: {
-      'react-formo': '../src/react-formo.js'
+      'react-formo': '../src/index.js'
     }
   },
   output: {

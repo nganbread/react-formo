@@ -22,6 +22,13 @@ export default class extends Component {
                 <Inputo name="input3" validations={'required'} />
                 <Inputo name="input4" validations="required" />
             </Formo>
+
+            <Formo name="form3">
+                <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
+                <Inputo name="input5" validations={['required']} />
+                <Inputo name="input6" validations={'required'} />
+                <Inputo name="input7" validations="required" />
+            </Formo>
         </Formo>
     }
 }

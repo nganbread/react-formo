@@ -6,6 +6,7 @@ import ValidationInputVisitor from 'visitors/ValidationInputVisitor';
 import ValidationStateVisitor from 'visitors/ValidationStateVisitor';
 import ValidationMessageVisitor from 'visitors/ValidationMessageVisitor';
 import ValidationFormVisitor from 'visitors/ValidationFormVisitor';
+import DirtyFormVisitor from 'visitors/DirtyFormVisitor';
 import CONSTANTS from 'configuration/constants';
 
 class Inputo extends Component {
@@ -34,8 +35,8 @@ class Inputo extends Component {
             formVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
             messageVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
 
-            console.log(ruleVisitor.validationRules)
-            console.log(stateVisitor.validationState);
+            const dirtyFormVisitor = new DirtyFormVisitor();
+            dirtyFormVisitor.traverse(inputo.context.formo);
         });
     }
 
