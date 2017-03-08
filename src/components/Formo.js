@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BranchContext from 'contexts/BranchContext';
 import { rootContext } from 'contexts/RootContext';
-import CleanFormVisitor from 'visitors/CleanFormVisitor';
+import RemoveStatePropertyVisitor from 'visitors/RemoveStatePropertyVisitor';
 
 class Formo extends Component {
 
@@ -12,23 +12,17 @@ class Formo extends Component {
     }
 
     clean() {
-        this.setState({
-            dirty: false
-        }, () =>{
-            const formoContext = (this.context.formo || rootContext).branch(this);
-            const cleanFormVisitor = new CleanFormVisitor();
-            cleanFormVisitor.traverse(formoContext);
-        });
+        const formoContext = (this.context.formo || rootContext).branch(this);
+        const cleanFormVisitor = new RemoveStatePropertyVisitor('dirty');
+        cleanFormVisitor.traverse(formoContext);
     }
 
     style() {
         return {
-            border: this.state && this.state.invalid
-                ? '1px solid red'
-                : '',
-            backgroundColor: this.state && this.state.dirty
-                ? 'beige'
-                : 'white',
+            border: this.state && this.state.invalid ?
+                '1px solid red' : '',
+            backgroundColor: this.state && this.state.dirty ?
+                'beige' : 'white',
             padding: 5,
             margin: 5
         }
@@ -39,11 +33,12 @@ class Formo extends Component {
     }
 
     render() {
-        return <div style={this.style()}>
-            <button onClick={() => this.clean()}>Clean</button>
-            {this.props.name}
-            {this.props.children}
-        </div>
+        return <div style = { this.style() } >
+            <
+            button onClick = {
+                () => this.clean()
+            } > Clean < /button> { this.props.name } { this.props.children } < /
+        div >
     }
 }
 

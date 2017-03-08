@@ -6,7 +6,7 @@ import ValidationInputVisitor from 'visitors/ValidationInputVisitor';
 import ValidationStateVisitor from 'visitors/ValidationStateVisitor';
 import ValidationMessageVisitor from 'visitors/ValidationMessageVisitor';
 import ValidationFormVisitor from 'visitors/ValidationFormVisitor';
-import DirtyFormVisitor from 'visitors/DirtyFormVisitor';
+import ApplyStatePropertyVisitor from 'visitors/ApplyStatePropertyVisitor';
 import CONSTANTS from 'configuration/constants';
 
 class Inputo extends Component {
@@ -35,7 +35,7 @@ class Inputo extends Component {
             formVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
             messageVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
 
-            const dirtyFormVisitor = new DirtyFormVisitor();
+            const dirtyFormVisitor = new ApplyStatePropertyVisitor('dirty');
             dirtyFormVisitor.traverse(inputo.context.formo);
         });
     }
@@ -47,13 +47,20 @@ class Inputo extends Component {
     componentWillUnmount() {
         this.context.formo.deleaf(CONSTANTS.LEAF.INPUTO, this);
     }
-    
-    getValue(){
+
+    getValue() {
         return this.state.value;
     }
 
     render() {
-        return <input style={{border: this.state.invalid ? '1px solid red' : '', margin: 2}} placeholder={this.props.name} value={this.state.value} type="text" onChange={e => this.onChange(e)} />
+        return <input style = {
+            { border: this.state.invalid ? '1px solid red' : '', margin: 2 }
+        }
+        placeholder = { this.props.name }
+        value = { this.state.value }
+        type = "text"
+        onChange = { e => this.onChange(e) }
+        />
     }
 }
 
