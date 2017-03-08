@@ -3,7 +3,7 @@ import some from 'lodash/some';
 import remove from 'lodash/remove';
 import find from 'lodash/find';
 
-export default class BranchContext extends LeafContext{
+export default class BranchContext extends LeafContext {
     constructor(...args) {
         super(...args)
 
@@ -29,9 +29,12 @@ export default class BranchContext extends LeafContext{
     leaf(type, component) {
         this.leaves[type] = this.leaves[type] || [];
         //keep leaves unique
-        if (!some(this.leaves[type], leaf => leaf._component === component)) {
-            this.leaves[type].push(new LeafContext(component, this));
+        let leaf = find(this.leaves[type], leaf => leaf._component === component);
+        if (!leaf) {
+            leaf = new LeafContext(component, this);
+            this.leaves[type].push(leaf);
         }
+        return leaf;
     }
 
     deleaf(type, component) {
@@ -42,4 +45,3 @@ export default class BranchContext extends LeafContext{
         return this.leaves[type] || [];
     }
 }
-

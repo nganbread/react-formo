@@ -19,9 +19,10 @@ class Inputo extends Component {
 
     onChange(event) {
         const inputo = this;
+        const wasClean = this.state && !this.state.dirty;
 
         this.setState({
-            value: event.target.value
+            value: event.target.value,
         }, () => {
             const ruleVisitor = new ValidationRuleVisitor();
             const stateVisitor = new ValidationStateVisitor();
@@ -35,9 +36,18 @@ class Inputo extends Component {
             formVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
             messageVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
 
-            const dirtyFormVisitor = new ApplyStatePropertyVisitor('dirty');
-            dirtyFormVisitor.traverse(inputo.context.formo);
+            if (wasClean) {
+                const dirtyFormVisitor = new ApplyStatePropertyVisitor('dirty');
+                dirtyFormVisitor.traverse(this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this));
+            }
         });
+    }
+
+    onFocus() {
+        if (this.state && !this.state.touched) {
+            const dirtyFormVisitor = new ApplyStatePropertyVisitor('touched');
+            dirtyFormVisitor.traverse(this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this));
+        }
     }
 
     componentWillMount() {
@@ -52,14 +62,22 @@ class Inputo extends Component {
         return this.state.value;
     }
 
-    render() {
-        return <input style = {
-            { border: this.state.invalid ? '1px solid red' : '', margin: 2 }
+    style() {
+        return {
+            border: this.state.invalid ? '1px solid red' : '',
+            backgroundColor: this.state.dirty ? 'beige' : '',
+            color: this.state.touched ? 'blue' : '',
+            margin: 2
         }
-        placeholder = { this.props.name }
-        value = { this.state.value }
-        type = "text"
-        onChange = { e => this.onChange(e) }
+    }
+
+    render() {
+        return <input style={this.style()}
+            placeholder={this.props.name}
+            value={this.state.value}
+            type="text"
+            onFocus={e => this.onFocus(e)}
+            onChange={e => this.onChange(e)}
         />
     }
 }

@@ -17,12 +17,20 @@ class Formo extends Component {
         cleanFormVisitor.traverse(formoContext);
     }
 
+    untouch(){
+        const formoContext = (this.context.formo || rootContext).branch(this);
+        const cleanFormVisitor = new RemoveStatePropertyVisitor('touched');
+        cleanFormVisitor.traverse(formoContext);
+    }
+
     style() {
         return {
             border: this.state && this.state.invalid ?
                 '1px solid red' : '',
             backgroundColor: this.state && this.state.dirty ?
                 'beige' : 'white',
+            color: this.state && this.state.touched ?
+                'blue' : 'black',
             padding: 5,
             margin: 5
         }
@@ -33,12 +41,12 @@ class Formo extends Component {
     }
 
     render() {
-        return <div style = { this.style() } >
-            <
-            button onClick = {
-                () => this.clean()
-            } > Clean < /button> { this.props.name } { this.props.children } < /
-        div >
+        return <div style={this.style()}>
+            <button onClick={() => this.clean()}>Clean</button> 
+            <button onClick={() => this.untouch()}>Untouch</button> 
+            {this.props.name}
+            {this.props.children}
+        </div >
     }
 }
 

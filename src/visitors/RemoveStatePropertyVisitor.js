@@ -18,11 +18,11 @@ export default class {
     //pass the clean child up. We cant trust the react state as it may not have been updated yet
     _visitParent(context, cleanChild) {
         if (context === rootContext) return;
-        if (context._component.state && !context._component.state[this._property]) return;
+        if (context.state(this._property)) return;
 
         let hasDirtyChild = some(context.branches, branch => {
             if (branch === cleanChild) return false;
-            return branch._component.state.dirty;
+            return branch.state(this._property);
         });
 
         hasDirtyChild = hasDirtyChild || some(context.getLeaves(CONSTANTS.LEAF.INPUTO), leaf => leaf._component.state[this._property])
