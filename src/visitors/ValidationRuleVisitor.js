@@ -26,7 +26,7 @@ export default class {
 
         return {
             ...branchState,
-            [CONSTANTS.STATE.VALIDATIONS]: leafState,
+            [CONSTANTS.FORMO_STATE.VALIDATIONS]: leafState,
         }
     }
 }

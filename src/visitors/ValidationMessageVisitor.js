@@ -16,8 +16,10 @@ export default class {
 
     visit(context, validationState){
         context.getLeaves(CONSTANTS.LEAF.VALIDATION_MESSAGO).forEach(validationMessage =>{
+            const forValidationState = pathProperty(validationState, validationMessage.prop(CONSTANTS.PROP.FOR));
+
             validationMessage.setState({
-                invalid: !pathProperty(validationState, validationMessage.prop(CONSTANTS.PROP.FOR))[CONSTANTS.STATE.VALIDATIONS][validationMessage.prop(CONSTANTS.PROP.RULE)]
+                [CONSTANTS.STATE.INVALID]: !forValidationState[CONSTANTS.FORMO_STATE.VALIDATIONS][validationMessage.prop(CONSTANTS.PROP.RULE)]
             });
         });
 

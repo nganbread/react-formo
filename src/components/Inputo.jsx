@@ -39,7 +39,9 @@ class Inputo extends Component {
             messageVisitor.traverse(node, stateVisitor.validationState);
 
             if (wasClean) {
-                const dirtyFormVisitor = new SetStateAncestorsVisitor({dirty: true});
+                const dirtyFormVisitor = new SetStateAncestorsVisitor({
+                    [CONSTANTS.STATE.DIRTY]: true
+                });
                 dirtyFormVisitor.traverse(node);
             }
         });
@@ -55,7 +57,9 @@ class Inputo extends Component {
 
     onFocus() {
         if (this.state && !this.state.touched) {
-            const dirtyFormVisitor = new SetStateAncestorsVisitor({touched: true});
+            const dirtyFormVisitor = new SetStateAncestorsVisitor({
+                [CONSTANTS.STATE.TOUCHED]: true
+            });
             dirtyFormVisitor.traverse(this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this));
         }
     }
@@ -74,9 +78,9 @@ class Inputo extends Component {
 
     style() {
         return {
-            border: this.state.invalid ? '1px solid red' : '',
-            backgroundColor: this.state.dirty ? 'beige' : '',
-            color: this.state.touched ? 'blue' : '',
+            border: this.state[CONSTANTS.STATE.INVALID] ? '1px solid red' : '',
+            backgroundColor: this.state[CONSTANTS.STATE.DIRTY] ? 'beige' : '',
+            color: this.state[CONSTANTS.STATE.DIRTY] ? 'blue' : '',
             margin: 2
         }
     }
@@ -88,7 +92,7 @@ class Inputo extends Component {
             type="text"
             onFocus={e => this.onFocus(e)}
             onChange={e => this.onChange(e)}
-            disabled={this.state.disabled}
+            disabled={this.state[CONSTANTS.STATE.DISABLED]}
         />
     }
 }

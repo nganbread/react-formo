@@ -16,7 +16,7 @@ export default class {
     visit(context, validationState){
         context.getLeaves(CONSTANTS.LEAF.INPUTO).forEach(validatable =>{
             validatable.setState({
-                invalid: !validationState[validatable.prop(CONSTANTS.PROP.NAME)][CONSTANTS.STATE.VALID]
+                [CONSTANTS.STATE.INVALID]: !validationState[validatable.prop(CONSTANTS.PROP.NAME)][CONSTANTS.FORMO_STATE.VALID]
             });
         });
 

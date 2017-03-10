@@ -5,6 +5,12 @@ export default{
         VALIDATION_RULO: "VALIDATION_RULO"
     },
     STATE:{
+        INVALID: '_invalid',
+        DIRTY: '_dirty',
+        TOUCHED: '_touched',
+        DISABLED: '_disabled'
+    },
+    FORMO_STATE:{
         VALID: '_valid',
         VALIDATIONS: '_validations',
     },

@@ -15,7 +15,7 @@ export default class {
 
     visit(context, validationState) {
         context.setState({
-            invalid: !validationState[CONSTANTS.STATE.VALID]
+            [CONSTANTS.STATE.INVALID]: !validationState[CONSTANTS.FORMO_STATE.VALID]
         });
 
         context.branches.forEach(branch => {

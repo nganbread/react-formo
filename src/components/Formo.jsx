@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BranchContext from 'contexts/BranchContext';
 import { rootContext } from 'contexts/RootContext';
 import SetStateChildrenVisitor from 'visitors/SetStateChildrenVisitor';
+import CONSTANTS from 'configuration/constants';
 
 class Formo extends Component {
 
@@ -12,17 +13,23 @@ class Formo extends Component {
     }
 
     clean() {
-        const cleanFormVisitor = new SetStateChildrenVisitor({dirty: false});
+        const cleanFormVisitor = new SetStateChildrenVisitor({
+            [CONSTANTS.STATE.DIRTY]: false
+        });
         cleanFormVisitor.traverse(this._node());
     }
 
     untouch(){
-        const cleanFormVisitor = new SetStateChildrenVisitor({touched: false});
+        const cleanFormVisitor = new SetStateChildrenVisitor({
+            [CONSTANTS.STATE.TOUCHED]: false
+        });
         cleanFormVisitor.traverse(this._node());
     }
 
     disable(disable){
-        const cleanFormVisitor = new SetStateChildrenVisitor({disabled: disable});
+        const cleanFormVisitor = new SetStateChildrenVisitor({
+            [CONSTANTS.STATE.DISABLED]: disable
+        });
         cleanFormVisitor.traverse(this._node());
     }
 
@@ -36,11 +43,11 @@ class Formo extends Component {
 
     style() {
         return {
-            border: this.state && this.state.invalid ?
+            border: this.state && this.state[CONSTANTS.STATE.VALID] ?
                 '1px solid red' : '',
-            backgroundColor: this.state && this.state.dirty ?
+            backgroundColor: this.state && this.state[CONSTANTS.STATE.DIRTY] ?
                 'beige' : 'white',
-            color: this.state && this.state.touched ?
+            color: this.state && this.state[CONSTANTS.STATE.TOUCHED] ?
                 'blue' : 'black',
             padding: 5,
             margin: 5

@@ -25,7 +25,7 @@ export default class {
         const validationState = {
             ...leafState,
             ...branchState,
-            [CONSTANTS.STATE.VALID]: every({ ...leafState, ...branchState }, CONSTANTS.STATE.VALID)
+            [CONSTANTS.FORMO_STATE.VALID]: every({ ...leafState, ...branchState }, CONSTANTS.FORMO_STATE.VALID)
         };
         return validationState;
     }
@@ -34,15 +34,15 @@ export default class {
         const value = component._component.getValue();
         const ruleKeys = keys(component.prop(CONSTANTS.PROP.VALIDATIONS));
         const validations = mapToObject(ruleKeys, ruleKey => {
-            const rule = validationRules[CONSTANTS.STATE.VALIDATIONS][ruleKeys];
+            const rule = validationRules[CONSTANTS.FORMO_STATE.VALIDATIONS][ruleKeys];
             const valid = !rule || rule(value);
 
             return [ruleKey, valid];
         });
 
         return {
-            [CONSTANTS.STATE.VALID]: every(validations),
-            [CONSTANTS.STATE.VALIDATIONS]: validations
+            [CONSTANTS.FORMO_STATE.VALID]: every(validations),
+            [CONSTANTS.FORMO_STATE.VALIDATIONS]: validations
         }
     }
 }
