@@ -31,7 +31,9 @@ export default class {
     }
 
     validate(component, validationRules) {
-        const value = component._component.getValue();
+        const value = component._component.state
+            ? component._component.state[CONSTANTS.STATE.VALUE]
+            : undefined;
         const ruleKeys = keys(component.prop(CONSTANTS.PROP.VALIDATIONS));
         const validations = mapToObject(ruleKeys, ruleKey => {
             const rule = validationRules[CONSTANTS.FORMO_STATE.VALIDATIONS][ruleKeys];

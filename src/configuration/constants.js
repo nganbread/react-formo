@@ -8,7 +8,8 @@ export default{
         INVALID: '_invalid',
         DIRTY: '_dirty',
         TOUCHED: '_touched',
-        DISABLED: '_disabled'
+        DISABLED: '_disabled',
+        VALUE: '_value'
     },
     FORMO_STATE:{
         VALID: '_valid',

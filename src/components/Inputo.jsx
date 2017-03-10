@@ -13,7 +13,7 @@ class Inputo extends Component {
     constructor() {
         super();
         this.state = {
-            value: 'X'
+            [CONSTANTS.STATE.VALUE]: 'X'
         }
     }
 
@@ -22,7 +22,7 @@ class Inputo extends Component {
         const wasClean = this.state && !this.state.dirty;
 
         this.setState({
-            value: event.target.value,
+            [CONSTANTS.STATE.VALUE]: event.target.value,
         }, () => {
             const node = this._node();
 
@@ -72,10 +72,6 @@ class Inputo extends Component {
         this.context.formo.deleaf(CONSTANTS.LEAF.INPUTO, this);
     }
 
-    getValue() {
-        return this.state.value;
-    }
-
     style() {
         return {
             border: this.state[CONSTANTS.STATE.INVALID] ? '1px solid red' : '',
@@ -88,7 +84,7 @@ class Inputo extends Component {
     render() {
         return <input style={this.style()}
             placeholder={this.props.name}
-            value={this.state.value}
+            value={this.state[CONSTANTS.STATE.VALUE]}
             type="text"
             onFocus={e => this.onFocus(e)}
             onChange={e => this.onChange(e)}
