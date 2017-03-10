@@ -24,23 +24,33 @@ class Inputo extends Component {
         this.setState({
             value: event.target.value,
         }, () => {
+            const node = this._node();
+
             const ruleVisitor = new ValidationRuleVisitor();
             const stateVisitor = new ValidationStateVisitor();
             const inputVisitor = new ValidationInputVisitor();
             const formVisitor = new ValidationFormVisitor();
             const messageVisitor = new ValidationMessageVisitor();
 
-            ruleVisitor.traverse(inputo.context.formo);
-            stateVisitor.traverse(inputo.context.formo, ruleVisitor.validationRules);
-            inputVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
-            formVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
-            messageVisitor.traverse(inputo.context.formo, stateVisitor.validationState);
+            ruleVisitor.traverse(node);
+            stateVisitor.traverse(node, ruleVisitor.validationRules);
+            inputVisitor.traverse(node, stateVisitor.validationState);
+            formVisitor.traverse(node, stateVisitor.validationState);
+            messageVisitor.traverse(node, stateVisitor.validationState);
 
             if (wasClean) {
                 const dirtyFormVisitor = new ApplyStatePropertyVisitor('dirty');
-                dirtyFormVisitor.traverse(this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this));
+                dirtyFormVisitor.traverse(node);
             }
         });
+    }
+
+    _node(){
+        return this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this);
+    }
+
+    _nodeParent(){
+        return this.context.formo;
     }
 
     onFocus() {

@@ -7,20 +7,26 @@ class Formo extends Component {
 
     getChildContext() {
         return {
-            formo: (this.context.formo || rootContext).branch(this)
+            formo: this._node()
         };
     }
 
     clean() {
-        const formoContext = (this.context.formo || rootContext).branch(this);
         const cleanFormVisitor = new RemoveStatePropertyVisitor('dirty');
-        cleanFormVisitor.traverse(formoContext);
+        cleanFormVisitor.traverse(this._node());
     }
 
     untouch(){
-        const formoContext = (this.context.formo || rootContext).branch(this);
         const cleanFormVisitor = new RemoveStatePropertyVisitor('touched');
-        cleanFormVisitor.traverse(formoContext);
+        cleanFormVisitor.traverse(this._node());
+    }
+
+    _node(){
+        return this._nodeParent().branch(this);
+    }
+
+    _nodeParent(){
+        return this.context.formo || rootContext;
     }
 
     style() {
@@ -37,7 +43,7 @@ class Formo extends Component {
     }
 
     componentWillUnmount() {
-        (this.context.formo || rootContext).prune(this);
+        this._nodeParent().prune(this);
     }
 
     render() {

@@ -25,7 +25,7 @@ export default class BranchContext extends LeafContext {
     prune(component) {
         remove(this.branches, branch => branch._component === component);
     }
-
+ 
     leaf(type, component) {
         this.leaves[type] = this.leaves[type] || [];
         //keep leaves unique
