@@ -13,7 +13,7 @@ export default class extends Component {
             </ValidationMessago>
 
             <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
-            
+
             <Inputo name="input1" validations={{ required: true }} />
 
             <Formo name="form2">
@@ -26,8 +26,8 @@ export default class extends Component {
             <Formo name="form3">
                 <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
                 <Inputo name="input5" validations={['required']} />
-                <Inputo name="input6" validations={'required'} />
-                <Inputo name="input7" validations="required" />
+                <Inputo name="input6" validations={() => ({required: true})} />
+                <Inputo name="input7" validations={() => ['required']} />
             </Formo>
         </Formo>
     }

@@ -1,6 +1,7 @@
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
+import isFunction from 'lodash/isFunction';
 import map from 'lodash/map';
 import keyBy from 'lodash/keyBy';
 import filter from 'lodash/filter';
@@ -10,6 +11,11 @@ import toPath from 'lodash/toPath';
 
 export function keys(o) {
     if(!o) return [];
+
+    if(isFunction(o)){
+        return keys(o());
+    }
+
     if (!isArray(o)) {
         if (isObject(o)) {
             o = map(o, (value, key) => value ? key : null);
