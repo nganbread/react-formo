@@ -1,8 +1,8 @@
 import { rootContext } from 'contexts/RootContext';
 
 export default class {
-    constructor(property) {
-        this._property = property;
+    constructor(state) {
+        this._state = state;
     }
 
     traverse(context) {
@@ -13,8 +13,8 @@ export default class {
         if (context === rootContext) return;
 
         context.setState({
-            [this._property]: true,
-        });
+            ...this._state
+        })
 
         this._visit(context.parent);
     }

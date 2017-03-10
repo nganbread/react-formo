@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BranchContext from 'contexts/BranchContext';
 import { rootContext } from 'contexts/RootContext';
-import RemoveStatePropertyVisitor from 'visitors/RemoveStatePropertyVisitor';
+import SetStateChildrenVisitor from 'visitors/SetStateChildrenVisitor';
 
 class Formo extends Component {
 
@@ -12,12 +12,17 @@ class Formo extends Component {
     }
 
     clean() {
-        const cleanFormVisitor = new RemoveStatePropertyVisitor('dirty');
+        const cleanFormVisitor = new SetStateChildrenVisitor({dirty: false});
         cleanFormVisitor.traverse(this._node());
     }
 
     untouch(){
-        const cleanFormVisitor = new RemoveStatePropertyVisitor('touched');
+        const cleanFormVisitor = new SetStateChildrenVisitor({touched: false});
+        cleanFormVisitor.traverse(this._node());
+    }
+
+    disable(disable){
+        const cleanFormVisitor = new SetStateChildrenVisitor({disabled: disable});
         cleanFormVisitor.traverse(this._node());
     }
 
@@ -50,6 +55,8 @@ class Formo extends Component {
         return <div style={this.style()}>
             <button onClick={() => this.clean()}>Clean</button> 
             <button onClick={() => this.untouch()}>Untouch</button> 
+            <button onClick={() => this.disable(true)}>Disable</button> 
+            <button onClick={() => this.disable(false)}>Enable</button> 
             {this.props.name}
             {this.props.children}
         </div >

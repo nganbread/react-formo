@@ -6,7 +6,7 @@ import ValidationInputVisitor from 'visitors/ValidationInputVisitor';
 import ValidationStateVisitor from 'visitors/ValidationStateVisitor';
 import ValidationMessageVisitor from 'visitors/ValidationMessageVisitor';
 import ValidationFormVisitor from 'visitors/ValidationFormVisitor';
-import ApplyStatePropertyVisitor from 'visitors/ApplyStatePropertyVisitor';
+import SetStateAncestorVisitor from 'visitors/SetStateAncestorVisitor';
 import CONSTANTS from 'configuration/constants';
 
 class Inputo extends Component {
@@ -39,7 +39,7 @@ class Inputo extends Component {
             messageVisitor.traverse(node, stateVisitor.validationState);
 
             if (wasClean) {
-                const dirtyFormVisitor = new ApplyStatePropertyVisitor('dirty');
+                const dirtyFormVisitor = new SetStateAncestorVisitor({dirty: true});
                 dirtyFormVisitor.traverse(node);
             }
         });
@@ -55,7 +55,7 @@ class Inputo extends Component {
 
     onFocus() {
         if (this.state && !this.state.touched) {
-            const dirtyFormVisitor = new ApplyStatePropertyVisitor('touched');
+            const dirtyFormVisitor = new SetStateAncestorVisitor({touched: true});
             dirtyFormVisitor.traverse(this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this));
         }
     }
@@ -88,6 +88,7 @@ class Inputo extends Component {
             type="text"
             onFocus={e => this.onFocus(e)}
             onChange={e => this.onChange(e)}
+            disabled={this.state.disabled}
         />
     }
 }
