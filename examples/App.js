@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Formo, Inputo, ValidationMessago, ValidationRulo } from 'react-formo';
 
 export default class extends Component {
+    submit(){
+        console.log()
+    }
+    
     render() {
         return <Formo name="form1">
             <ValidationMessago for="input1" rule="required">
@@ -29,6 +33,8 @@ export default class extends Component {
                 <Inputo name="input6" validations={() => ({required: true})} />
                 <Inputo name="input7" validations={() => ['required']} />
             </Formo>
+
+            <button onClick={() => this.submit()}>Submit</button>
         </Formo>
     }
 }

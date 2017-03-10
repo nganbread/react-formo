@@ -43,7 +43,7 @@ class Formo extends Component {
 
     style() {
         return {
-            border: this.state && this.state[CONSTANTS.STATE.VALID] ?
+            border: this.state && this.state[CONSTANTS.STATE.INVALID] ?
                 '1px solid red' : '',
             backgroundColor: this.state && this.state[CONSTANTS.STATE.DIRTY] ?
                 'beige' : 'white',
