@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CONSTANTS from 'configuration/constants';
+import LeafComponent from './LeafComponent';
 
-class ValidationMessago extends Component {
+export default class extends LeafComponent {
 
-    componentWillMount() {
-        this.context.formo.leaf(CONSTANTS.LEAF.VALIDATION_MESSAGO, this);
-    }
-
-    componentWillUnmount() {
-        this.context.formo.deleaf(CONSTANTS.LEAF.VALIDATION_MESSAGO, this);
+    constructor(){
+        super(CONSTANTS.LEAF.VALIDATION_MESSAGO);
     }
 
     render() {
@@ -17,11 +14,3 @@ class ValidationMessago extends Component {
             : null;
     }
 }
-
-ValidationMessago.contextTypes = {
-    formo: React.PropTypes.objectOf((propValue, key, componentName, location, propFullName) => {
-        return true;
-    })
-}
-
-export default ValidationMessago;

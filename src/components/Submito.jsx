@@ -1,19 +1,14 @@
-import React, { Component } from 'react';
-import BranchContext from 'contexts/BranchContext';
-import { rootContext } from 'contexts/RootContext';
-import SetStateChildrenVisitor from 'visitors/SetStateChildrenVisitor';
-import ValueVisitor from 'visitors/ValueVisitor';
+import React from 'react';
 import CONSTANTS from 'configuration/constants';
+import LeafComponent from './LeafComponent';
 
-export default class extends Component {
+export default class extends LeafComponent {
+    constructor(){
+        super(CONSTANTS.LEAF.SUBMITO);
+    }
+    
     submit = () => {
         this.context.formo._component.submit();
-    }
-
-    static contextTypes = {
-        formo: React.PropTypes.objectOf((propValue, key, componentName, location, propFullName) => {
-            return true;
-        })
     }
 
     render() {

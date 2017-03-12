@@ -4,8 +4,9 @@ import { rootContext } from 'contexts/RootContext';
 import SetStateChildrenVisitor from 'visitors/SetStateChildrenVisitor';
 import ValueVisitor from 'visitors/ValueVisitor';
 import CONSTANTS from 'configuration/constants';
+import PropTypes from 'utils/PropTypes';
 
-class Formo extends Component {
+export default class extends Component {
 
     submit() {
         if (!this.props.onSubmit) throw 'onSubmit prop is required to submit a form';
@@ -22,21 +23,21 @@ class Formo extends Component {
         };
     }
 
-    clean() {
+    clean = () => {
         const cleanFormVisitor = new SetStateChildrenVisitor({
             [CONSTANTS.STATE.DIRTY]: false
         });
         cleanFormVisitor.traverse(this._node());
     }
 
-    untouch() {
+    untouch = () => {
         const cleanFormVisitor = new SetStateChildrenVisitor({
             [CONSTANTS.STATE.TOUCHED]: false
         });
         cleanFormVisitor.traverse(this._node());
     }
 
-    disable(disable) {
+    disable = disable => {
         const cleanFormVisitor = new SetStateChildrenVisitor({
             [CONSTANTS.STATE.DISABLED]: disable
         });
@@ -70,26 +71,19 @@ class Formo extends Component {
 
     render() {
         return <div style={this.style()}>
-            <button onClick={() => this.clean()}>Clean</button>
-            <button onClick={() => this.untouch()}>Untouch</button>
+            <button onClick={this.clean}>Clean</button>
+            <button onClick={this.untouch}>Untouch</button>
             <button onClick={() => this.disable(true)}>Disable</button>
             <button onClick={() => this.disable(false)}>Enable</button>
             {this.props.name}
             {this.props.children}
         </div >
     }
-}
 
-Formo.contextTypes = {
-    formo: React.PropTypes.objectOf((propValue, key, componentName, location, propFullName) => {
-        return true;
-    })
+    static contextTypes = {
+        formo: PropTypes.Context
+    }
+    static childContextTypes = {
+        formo: PropTypes.Context
+    }
 }
-
-Formo.childContextTypes = {
-    formo: React.PropTypes.objectOf((propValue, key, componentName, location, propFullName) => {
-        return true;
-    })
-}
-
-export default Formo;

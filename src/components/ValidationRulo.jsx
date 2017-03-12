@@ -1,18 +1,11 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import CONSTANTS from 'configuration/constants'
+import LeafComponent from './LeafComponent';
 
-class ValidationRulo extends PureComponent {
-    componentWillMount(){
-        this.context.formo.leaf(CONSTANTS.LEAF.VALIDATION_RULO, this);
+export default class extends LeafComponent {
+    constructor(){
+        super(CONSTANTS.LEAF.VALIDATION_RULO)
     }
-
-    componentWillUnmount(){
-        this.context.formo.deleaf(CONSTANTS.LEAF.VALIDATION_RULO, this);
-    }
-
-    // componentDidUpdate() {
-    //     this.context.formo.changed();
-    // }
 
     render(){
         return null;
@@ -23,12 +16,3 @@ class ValidationRulo extends PureComponent {
         return false;
     }
 }
-
-
-ValidationRulo.contextTypes  = {
-    formo: React.PropTypes.objectOf((propValue, key, componentName, location, propFullName) => {
-        return true;
-    })
-}
-
-export default ValidationRulo;

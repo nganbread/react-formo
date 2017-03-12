@@ -10,9 +10,9 @@ import reduce from 'lodash/reduce';
 import toPath from 'lodash/toPath';
 
 export function keys(o) {
-    if(!o) return [];
+    if (!o) return [];
 
-    if(isFunction(o)){
+    if (isFunction(o)) {
         return keys(o());
     }
 
@@ -31,7 +31,7 @@ export function keys(o) {
     return filter(o);
 }
 
-export function mapToObject(array, selector){
+export function mapToObject(array, selector) {
     //mapToObject([{a:'b', c: 4}], x => [x.a, x.c])
     //{b: 4}
 
@@ -40,9 +40,9 @@ export function mapToObject(array, selector){
     return mapValues(pairsObject, '[1]');
 }
 
-export function pathProperty(o, path){
+export function pathProperty(o, path) {
     //pathProperty({a: [{b: 'c'}]}, 'a[0].b')
     //'c'
     const components = toPath(path);
-    return reduce(components, (next, key) => next[key] , o);
+    return reduce(components, (next, key) => next[key], o);
 }

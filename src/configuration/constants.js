@@ -1,21 +1,22 @@
-export default{
-    LEAF:{
+export default {
+    LEAF: {
         INPUTO: 'INPUTO',
         VALIDATION_MESSAGO: 'VALIDATION_MESSAGO',
-        VALIDATION_RULO: "VALIDATION_RULO"
+        VALIDATION_RULO: "VALIDATION_RULO",
+        SUBMITO: "SUBMITO",
     },
-    STATE:{
+    STATE: {
         INVALID: '_invalid',
         DIRTY: '_dirty',
         TOUCHED: '_touched',
         DISABLED: '_disabled',
         VALUE: '_value'
     },
-    FORMO_STATE:{
+    FORMO_STATE: {
         VALID: '_valid',
         VALIDATIONS: '_validations',
     },
-    PROP:{
+    PROP: {
         NAME: 'name',
         FOR: 'for',
         RULE: 'rule',

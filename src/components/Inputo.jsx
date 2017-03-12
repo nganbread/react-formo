@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
 import ValidationRuleVisitor from 'visitors/ValidationRuleVisitor';
@@ -8,10 +8,11 @@ import ValidationMessageVisitor from 'visitors/ValidationMessageVisitor';
 import ValidationFormVisitor from 'visitors/ValidationFormVisitor';
 import SetStateAncestorsVisitor from 'visitors/SetStateAncestorsVisitor';
 import CONSTANTS from 'configuration/constants';
+import LeafComponent from './LeafComponent';
 
-class Inputo extends Component {
+export default class extends LeafComponent {
     constructor() {
-        super();
+        super(CONSTANTS.LEAF.INPUTO);
         this.state = {
             [CONSTANTS.STATE.VALUE]: 'X'
         }
@@ -47,14 +48,6 @@ class Inputo extends Component {
         });
     }
 
-    _node(){
-        return this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this);
-    }
-
-    _nodeParent(){
-        return this.context.formo;
-    }
-
     onFocus() {
         if (this.state && !this.state.touched) {
             const dirtyFormVisitor = new SetStateAncestorsVisitor({
@@ -62,14 +55,6 @@ class Inputo extends Component {
             });
             dirtyFormVisitor.traverse(this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this));
         }
-    }
-
-    componentWillMount() {
-        this.context.formo.leaf(CONSTANTS.LEAF.INPUTO, this);
-    }
-
-    componentWillUnmount() {
-        this.context.formo.deleaf(CONSTANTS.LEAF.INPUTO, this);
     }
 
     style() {
@@ -92,11 +77,3 @@ class Inputo extends Component {
         />
     }
 }
-
-Inputo.contextTypes = {
-    formo: React.PropTypes.objectOf((propValue, key, componentName, location, propFullName) => {
-        return true;
-    })
-}
-
-export default Inputo;
