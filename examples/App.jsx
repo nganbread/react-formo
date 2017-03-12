@@ -20,7 +20,7 @@ export default class extends Component {
 
             <Inputo name="input1" validations={{ required: true }} />
 
-            <Formo name="form2">
+            <Formo name="form2" onSubmit={this.submit}>
                 <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
                 <Inputo name="input2" validations={['required']} />
                 <Inputo name="input3" validations={'required'} />
@@ -39,7 +39,11 @@ export default class extends Component {
                 </Submito>
 
                 <Submito formo={() => 'form1'}>
-                    <button>Submit form1</button>
+                    <button>Submit () => form1</button>
+                </Submito>
+
+                <Submito formo={'form1.form2'}>
+                    <button>Submit form1.form2</button>
                 </Submito>
 
             </Formo>

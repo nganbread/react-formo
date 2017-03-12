@@ -9,7 +9,7 @@ export default class extends LeafComponent {
     }
 
     render() {
-        return this.state && this.state.invalid
+        return this.state && this.state[CONSTANTS.STATE.INVALID]
             ? <div>{this.props.children}</div>
             : null;
     }
