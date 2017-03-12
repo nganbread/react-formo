@@ -18,7 +18,7 @@ export default class extends LeafComponent {
         }
     }
 
-    onChange(event) {
+    onChange = event => {
         const inputo = this;
         const wasClean = this.state && !this.state.dirty;
 
@@ -48,7 +48,7 @@ export default class extends LeafComponent {
         });
     }
 
-    onFocus() {
+    onFocus = () => {
         if (this.state && !this.state.touched) {
             const dirtyFormVisitor = new SetStateAncestorsVisitor({
                 [CONSTANTS.STATE.TOUCHED]: true
@@ -71,8 +71,8 @@ export default class extends LeafComponent {
             placeholder={this.props.name}
             value={this.state[CONSTANTS.STATE.VALUE]}
             type="text"
-            onFocus={e => this.onFocus(e)}
-            onChange={e => this.onChange(e)}
+            onFocus={this.onFocus}
+            onChange={this.onChange}
             disabled={this.state[CONSTANTS.STATE.DISABLED]}
         />
     }
