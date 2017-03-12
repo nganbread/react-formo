@@ -9,6 +9,14 @@ import mapValues from 'lodash/mapValues';
 import reduce from 'lodash/reduce';
 import toPath from 'lodash/toPath';
 
+export function resolveString(o) {
+    if (isFunction(o)) {
+        return resolveString(o());
+    }
+
+    return o;
+}
+
 export function keys(o) {
     if (!o) return [];
 

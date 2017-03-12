@@ -1,18 +1,22 @@
 import React from 'react';
 import CONSTANTS from 'configuration/constants';
 import LeafComponent from './LeafComponent';
+import SubmitFormVisitor from 'visitors/SubmitFormVisitor';
 
 export default class extends LeafComponent {
     constructor(){
         super(CONSTANTS.LEAF.SUBMITO);
     }
     
-    submit = () => {
-        this.context.formo._component.submit();
+    _submit = e => {
+        const visitor = new SubmitFormVisitor(this.props.formo);
+        visitor.traverse(this._node());
+
+        e.stopPropagation();
     }
 
     render() {
-        return <div onClick={this.submit}>
+        return <div onClick={this._submit}>
             {this.props.children}
         </div >
     }
