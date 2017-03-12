@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import BranchContext from 'contexts/BranchContext';
 import { rootContext } from 'contexts/RootContext';
 import SetStateChildrenVisitor from 'visitors/SetStateChildrenVisitor';
+import ValueVisitor from 'visitors/ValueVisitor';
 import CONSTANTS from 'configuration/constants';
 
 class Formo extends Component {
+
+    submit() {
+        if (!this.props.onSubmit) throw 'onSubmit prop is required to submit a form';
+
+        const visitor = new ValueVisitor();
+        visitor.traverse(this._node());
+
+        this.props.onSubmit(visitor.value);
+    }
 
     getChildContext() {
         return {
@@ -19,25 +29,25 @@ class Formo extends Component {
         cleanFormVisitor.traverse(this._node());
     }
 
-    untouch(){
+    untouch() {
         const cleanFormVisitor = new SetStateChildrenVisitor({
             [CONSTANTS.STATE.TOUCHED]: false
         });
         cleanFormVisitor.traverse(this._node());
     }
 
-    disable(disable){
+    disable(disable) {
         const cleanFormVisitor = new SetStateChildrenVisitor({
             [CONSTANTS.STATE.DISABLED]: disable
         });
         cleanFormVisitor.traverse(this._node());
     }
 
-    _node(){
+    _node() {
         return this._nodeParent().branch(this);
     }
 
-    _nodeParent(){
+    _nodeParent() {
         return this.context.formo || rootContext;
     }
 
@@ -60,10 +70,10 @@ class Formo extends Component {
 
     render() {
         return <div style={this.style()}>
-            <button onClick={() => this.clean()}>Clean</button> 
-            <button onClick={() => this.untouch()}>Untouch</button> 
-            <button onClick={() => this.disable(true)}>Disable</button> 
-            <button onClick={() => this.disable(false)}>Enable</button> 
+            <button onClick={() => this.clean()}>Clean</button>
+            <button onClick={() => this.untouch()}>Untouch</button>
+            <button onClick={() => this.disable(true)}>Disable</button>
+            <button onClick={() => this.disable(false)}>Enable</button>
             {this.props.name}
             {this.props.children}
         </div >

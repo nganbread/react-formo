@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Formo, Inputo, ValidationMessago, ValidationRulo } from 'react-formo';
+import { Formo, Inputo, ValidationMessago, ValidationRulo, Submito } from 'react-formo';
 
 export default class extends Component {
-    submit(){
-        console.log()
+    submit = (data) => {
+        console.log(data)
     }
-    
+
     render() {
-        return <Formo name="form1">
+        return <Formo name="form1" onSubmit={this.submit}>
             <ValidationMessago for="input1" rule="required">
                 form1.input1 is required
             </ValidationMessago>
@@ -30,11 +30,14 @@ export default class extends Component {
             <Formo name="form3">
                 <ValidationRulo rule="required" validate={value => !!value}></ValidationRulo>
                 <Inputo name="input5" validations={['required']} />
-                <Inputo name="input6" validations={() => ({required: true})} />
+                <Inputo name="input6" validations={() => ({ required: true })} />
                 <Inputo name="input7" validations={() => ['required']} />
             </Formo>
 
-            <button onClick={() => this.submit()}>Submit</button>
+            <Submito>
+                <button>Submit</button>
+            </Submito>
+
         </Formo>
     }
 }
