@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'utils/PropTypes';
 
-export default class extends Component {
-    constructor(leafType){
+export default class LeafComponent extends Component {
+    constructor(leafType) {
         super();
+        if (!leafType) throw '"leafType" must be defined';
+        if (new.target === LeafComponent) throw 'LeafComponent is abstract';
+        
         this._leafType = leafType;
     }
-    
+
     static contextTypes = {
         formo: PropTypes.Context
     }
